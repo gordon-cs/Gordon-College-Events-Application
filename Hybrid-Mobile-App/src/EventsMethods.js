@@ -5,7 +5,7 @@ const getEvents = async () => {
   const result = await fetch("https://360api.gordon.edu/api/events/25Live/Public");
   const eventJson = result.ok ? await result.json() : "";
   const events = eventJson.map((e) => formatevent(e));
-  return events; // Works!
+  return events;
 };
 
 function formatevent(event) {
