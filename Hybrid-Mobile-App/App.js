@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Events from './src/Events.js'
+import { StyleSheet, View } from 'react-native';
+import Events from './src/EventsView.js';
 
 
 export default function App() {
