@@ -5,8 +5,7 @@ import eventMethods from './EventsMethods.js';
 
 export default function Events(props) {
   const [events, setEvents] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("Chapel");
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("fart");
   const [loading, setLoading] = useState(true);
   const [eventsLoaded, setEventsLoaded] = useState(false);
   
@@ -18,26 +17,19 @@ export default function Events(props) {
     }
     loadEvents();
   }, []);
-  /*
-  useEffect (() => {
-    if(!loading){
-      setLoading(true);
-      setFilteredEvents(eventMethods.getFilteredEvents(events, searchKeyword));
-      setLoading(false);
-    }
-  }, [events, searchKeyword]);*/
   
+  const filteredEvent = eventMethods.getFilteredEvents(events, searchKeyword)[0];
+    
   let content;
   
   if (loading) {
     content = <Text>loading...</Text>
   } else {
-    content =
-      <Text>
-      {events[0].Event_Name} and
-      {eventMethods.getFilteredEvents(events, searchKeyword)[0].Event_Name}
-      </Text>
-    
+    if (typeof filteredEvent === 'object') {
+      content = <Text>{filteredEvent.Event_Name}</Text>
+    } else {
+      content = <Text>There are no events that match your search</Text>
+    }
   }
   
   return(
@@ -50,6 +42,4 @@ export default function Events(props) {
          </Text>
     </View>
   );
-  
-  // if content == null, return something else
 }
