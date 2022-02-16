@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
-/**
- *  Format an event for display on the front end
- *
- * @param {Event} event The event to format
- * @returns {Event} The formatted event
- */
+
+const getEvents = async () => {
+  const result = await fetch("https://360api.gordon.edu/api/events/25Live/Public");
+  const eventJson = result.ok ? await result.json() : "";
+  const events = eventJson.map((e) => formatevent(e));
+  return events; // Works!
+};
 
 function formatevent(event) {
   let formattedEvent = { ...event };
@@ -27,11 +28,6 @@ function formatevent(event) {
   return formattedEvent;
 }
 
-const getEvents = async () => {
-  const events = await fetch("https://360api.gordon.edu/api/events/25Live/Public");
-  return events.map((e) => formatevent(e));
-};
-
 const getFilteredEvents = (events, keyword) => {
   const matchesSearch = search(keyword);
   if (search) {
@@ -45,7 +41,7 @@ const search = (word) => (event) => {
   const keyword = word.toLowerCase();
     return(
       event.title.toLowerCase().includes(keyword) ||
-      event.description.toLowerCase().includes(keyword) ||
+      event.Description.toLowerCase().includes(keyword) ||
       event.organization.toLowerCase().includes(keyword) ||
       event.location.toLowerCase().includes(keyword)
     );

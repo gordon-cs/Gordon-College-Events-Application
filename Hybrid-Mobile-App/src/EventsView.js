@@ -5,33 +5,32 @@ import eventMethods from './EventsMethods.js';
 
 export default function Events(props) {
   const [events, setEvents] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState("Chapel");
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [eventsLoaded, setEventsLoaded] = useState(false);
   
-  // END API CODE
   useEffect(() => {
-    const loadEvents = async () => {
-      const result = await fetch("https://360api.gordon.edu/api/events/25Live/Public");
-      
-      const eventJson = result.ok ? await result.json() : '';
-  
-      setEvents(eventJson);
-      setSearchKeyword("Chapel");
+    const loadEvents = async() => {
       setLoading(true);
-      setFilteredEvents(eventMethods.getFilteredEvents(events, searchKeyword));
+      setEvents(await eventMethods.getEvents()); // Not working, returning 'undefined'
       setLoading(false);
     }
-    
     loadEvents();
   }, []);
+  
+  useEffect (() => {
+    setLoading(true);
+    setFilteredEvents(eventMethods.getFilteredEvents(events, searchKeyword));
+    setLoading(false);
+  }, [events, searchKeyword]);
   
   let content;
   
     if (loading) {
       content = <Text>loading...</Text>
     } else {
-      content = <Text>{filteredEvents[0].Event_Name}</Text>
+      content = <Text>{events[0].Event_Name}</Text>
     }
   
   return(
