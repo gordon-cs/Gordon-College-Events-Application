@@ -29,14 +29,23 @@ function formatevent(event) {
 }
 
 const getFilteredEvents = (events, keyword) => {
-  const matchesSearch = search(keyword);
-  if (search) {
-    return events.filter(matchesSearch);
+  const search = (event) => {
+    const keyLower = keyword.toLowerCase();
+    return(
+      event.title.toLowerCase().includes(keyLower) ||
+      event.Description.toLowerCase().includes(keyLower) ||
+      event.organization.toLowerCase().includes(keyLower) ||
+      event.location.toLowerCase().includes(keyLower)
+    );
+  };
+  
+  if (events) {
+    return events.filter(search);
   } else {
     return events;
   }
 };
-
+/*
 const search = (word) => (event) => {
   const keyword = word.toLowerCase();
     return(
@@ -45,7 +54,7 @@ const search = (word) => (event) => {
       event.organization.toLowerCase().includes(keyword) ||
       event.location.toLowerCase().includes(keyword)
     );
-};
+};*/
 
 
 const eventMethods = {

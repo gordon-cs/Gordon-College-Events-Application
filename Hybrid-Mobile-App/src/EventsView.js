@@ -12,29 +12,33 @@ export default function Events(props) {
   
   useEffect(() => {
     const loadEvents = async() => {
-      setLoading(true); // needs to be called with default value
-      setEvents(await eventMethods.getEvents()); // Not working, returning 'undefined'
-      // Hudson: if no data, return something else
+      //setLoading(true); // needs to be called with default value
+      setEvents(await eventMethods.getEvents());
       setLoading(false);
     }
     loadEvents();
   }, []);
-  
+  /*
   useEffect (() => {
     if(!loading){
       setLoading(true);
       setFilteredEvents(eventMethods.getFilteredEvents(events, searchKeyword));
       setLoading(false);
     }
-  }, [events, searchKeyword]);
+  }, [events, searchKeyword]);*/
   
   let content;
   
-    if (loading) {
-      content = <Text>loading...</Text>
-    } else {
-      content = <Text>{events[0].Event_Name}</Text>
-    }
+  if (loading) {
+    content = <Text>loading...</Text>
+  } else {
+    content =
+      <Text>
+      {events[0].Event_Name} and
+      {eventMethods.getFilteredEvents(events, searchKeyword)[0].Event_Name}
+      </Text>
+    
+  }
   
   return(
     <View>
