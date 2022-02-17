@@ -45,17 +45,6 @@ const getFilteredEvents = (events, keyword) => {
     return events;
   }
 };
-/*
-const search = (word) => (event) => {
-  const keyword = word.toLowerCase();
-    return(
-      event.title.toLowerCase().includes(keyword) ||
-      event.Description.toLowerCase().includes(keyword) ||
-      event.organization.toLowerCase().includes(keyword) ||
-      event.location.toLowerCase().includes(keyword)
-    );
-};*/
-
 
 const eventMethods = {
   getEvents,
