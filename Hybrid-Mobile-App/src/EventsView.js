@@ -2,16 +2,14 @@ import React, { useState, useEffect, Component } from "react";
 import { StyleSheet, Text, View } from 'react-native';
 import eventMethods from './EventsMethods.js';
 
-
 export default function Events(props) {
   const [events, setEvents] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("fart");
+  const [searchKeyword, setSearchKeyword] = useState("Chapel");
   const [loading, setLoading] = useState(true);
   const [eventsLoaded, setEventsLoaded] = useState(false);
   
   useEffect(() => {
     const loadEvents = async() => {
-      //setLoading(true); // needs to be called with default value
       setEvents(await eventMethods.getEvents());
       setLoading(false);
     }
