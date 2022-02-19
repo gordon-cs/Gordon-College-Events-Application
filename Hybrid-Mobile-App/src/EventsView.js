@@ -4,9 +4,8 @@ import eventMethods from './EventsMethods.js';
 
 export default function Events(props) {
   const [events, setEvents] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState(["Career", "Chapel"]);
+  const [keywords, setKeywords] = useState(["Jazz", "Afro", "Evening Chapel"]);
   const [loading, setLoading] = useState(true);
-  const [eventsLoaded, setEventsLoaded] = useState(false);
   
   useEffect(() => {
     const loadEvents = async() => {
@@ -16,7 +15,7 @@ export default function Events(props) {
     loadEvents();
   }, []);
   
-  const filteredEvent = eventMethods.getFilteredEvents(events, searchKeyword)[0];
+  const filteredEvent = eventMethods.getFilteredEvents(events, keywords);
     
   let content;
   
@@ -24,7 +23,9 @@ export default function Events(props) {
     content = <Text>loading...</Text>
   } else {
     if (typeof filteredEvent === 'object') {
-      content = <Text>{filteredEvent.Event_Name}</Text>
+      console.log("NEW EVENTS: ")
+      console.log(filteredEvent)
+      content = <Text>{filteredEvent[0].Event_Name}</Text>
     } else {
       content = <Text>There are no events that match your search</Text>
     }
