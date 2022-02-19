@@ -28,15 +28,17 @@ function formatevent(event) {
   return formattedEvent;
 }
 
-const getFilteredEvents = (events, keyword) => {
+const getFilteredEvents = (events, keywords) => {
   const search = (event) => {
-    const keyLower = keyword.toLowerCase();
-    return(
-      event.title.toLowerCase().includes(keyLower) ||
-      event.Description.toLowerCase().includes(keyLower) ||
-      event.organization.toLowerCase().includes(keyLower) ||
-      event.location.toLowerCase().includes(keyLower)
-    );
+    for(let word of keywords) {
+      const keyLower = word.toLowerCase();
+      return(
+        event.title.toLowerCase().includes(keyLower) ||
+        event.Description.toLowerCase().includes(keyLower) ||
+        event.organization.toLowerCase().includes(keyLower) ||
+        event.location.toLowerCase().includes(keyLower)
+      );
+    }  
   };
   
   if (events) {
