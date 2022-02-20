@@ -1,13 +1,22 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import Events from './src/EventsView.js';
+import { BottomAppBar, TopAppBar } from './src/AppBar.js';
+import React, { Component } from 'react';
+import SwipeAllCards from './src/SwipeCards';
+
+
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Events/>
+      <TopAppBar/>
+      <SwipeAllCards/>
+      <BottomAppBar/>
     </View>
+    
   );
+  
 }
 
 const styles = StyleSheet.create({
@@ -18,3 +27,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+

@@ -5,7 +5,7 @@ import eventMethods from './EventsMethods.js';
 
 export default function Events(props) {
   const [events, setEvents] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState("fart");
+  const [searchKeyword, setSearchKeyword] = useState("Hamwe");
   const [loading, setLoading] = useState(true);
   const [eventsLoaded, setEventsLoaded] = useState(false);
   
