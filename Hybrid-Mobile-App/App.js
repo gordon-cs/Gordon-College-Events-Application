@@ -5,8 +5,6 @@ import React, { Component } from 'react';
 import SwipeAllCards from './src/SwipeCards';
 
 
-
-
 export default function App() {
   return (
     <View style={styles.container}>
@@ -16,7 +14,6 @@ export default function App() {
     </View>
     
   );
-  
 }
 
 const styles = StyleSheet.create({
