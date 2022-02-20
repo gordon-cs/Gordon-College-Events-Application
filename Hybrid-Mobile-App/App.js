@@ -1,19 +1,17 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
-import Events from './src/EventsView.js';
-import { BottomAppBar, TopAppBar } from './src/AppBar.js';
-import React, { Component } from 'react';
-import SwipeAllCards from './src/SwipeCards';
+import { BottomAppBar, TopAppBar } from './src/UI/AppBar.js';
+import React, { Component, useEffect, useState } from 'react';
+import EventCards from './src/UI/EventCards.js';
 
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <TopAppBar/>
-      <SwipeAllCards/>
-      <BottomAppBar/>
-    </View>
-    
-  );
+const App = () => {
+    return (
+      <View style={styles.container}>
+        <TopAppBar/>
+        <EventCards/>
+        <BottomAppBar/>
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -25,4 +23,5 @@ const styles = StyleSheet.create({
   },
 });
 
+export default App;
 
