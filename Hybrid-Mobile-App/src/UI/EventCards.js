@@ -74,6 +74,7 @@ export default function EventCards() {
           renderCard={(cardData) => <Card event={cardData} />}
           keyExtractor={(cardData) => String(cardData.text)}
           renderNoMoreCards={() => <StatusCard text="No more cards..." />}
+          //loop={true} //Return to frst card after cards run out
           actions={{
             nope: { onAction: handleNope },
             yup: { onAction: handleYup },
@@ -107,11 +108,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   card: {
-    backgroundColor: 'blue',
+    borderRadius: 15,
+    backgroundColor: "rgba(0,0,0, 0.1)",
     justifyContent: "center",
     alignItems: "center",
-    width: 300,
-    height: 300,
+    width: 330,
+    height: 500,
   },
   cardsText: {
     fontSize: 22,
