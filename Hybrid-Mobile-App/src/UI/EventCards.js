@@ -11,7 +11,18 @@ import SwipeCards from "react-native-swipe-cards-deck";
 const Card = (props) => {
   return (
     <View style={[styles.card]}>
-      <Text>{props.event.title}</Text>
+      <View>
+        <Text adjustsFontSizeToFit style={styles.cardsTextTitle}>{props.event.title}</Text>
+        <View style={{paddingTop: 20, flexDirection:"row"}}>
+          <View style={{flex:1}}><Text style={styles.cardsTextDate}>{props.event.date}</Text></View>
+          <View style={{flex:1}}><Text style={styles.cardsTextTime}>{props.event.timeRange}</Text></View>
+        </View> 
+      </View>  
+      <View style={{flex: 1}}>
+        <Text style={styles.cardsTextOrganization}>Organization: {props.event.organization}</Text>
+        <Text style={styles.cardsTextLocation}>Location: {props.event.location}</Text> 
+      </View>
+      <Text adjustsFontSizeToFit numberOfLines={8} style={styles.cardsTextDescription}>"{props.event.Description}"</Text>
     </View>
   );
 }
@@ -35,7 +46,7 @@ function StatusCard({ text }) {
  */
 export default function EventCards() {
   const [events, setEvents] = useState([]);
-  const [likeBias, setLikeBias] = useState([]);
+  const [likeBias, setLikeBias] = useState(["Chapel"]);
   const [dislikeBias, setDislikeBias] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -48,16 +59,35 @@ export default function EventCards() {
     loadEvents();
   }, []);
   
+  const liked = new Set();
+  const disliked = new Set();
+
   function handleYup(card) {
-    console.log(`Yup for ${card.title}`);
+    console.log(`Yup for ${card.title}\n`);
+    if (disliked.has(card.organization)){
+      disliked.delete(card.organization);
+    }
+    liked.add(card.organization);
+    console.log("liked: ");
+    console.log(liked);
+    console.log('\n');
+    console.log("disliked: ")
+    console.log(disliked);
+    console.log('\n');
     return true; // return false if you wish to cancel the action
   }
   function handleNope(card) {
-    console.log(`Nope for ${card.title}`);
-    return true;
-  }
-  function handleMaybe(card) {
-    console.log(`Maybe for ${card.title}`);
+    console.log(`Nope for ${card.title}\n`);
+    if (liked.has(card.organization)){
+      liked.delete(card.organization);
+    }
+    disliked.add(card.organization);
+    console.log("liked: ");
+    console.log(liked);
+    console.log('\n');
+    console.log("disliked: ")
+    console.log(disliked);
+    console.log('\n');
     return true;
   }
   
@@ -81,9 +111,7 @@ export default function EventCards() {
           actions={{
             nope: { onAction: handleNope },
             yup: { onAction: handleYup },
-            maybe: { onAction: handleMaybe },
           }}
-          hasMaybeAction={true}
 
           // If you want a stack of cards instead of one-per-one view, activate stack mode
           // stack={true}
@@ -113,13 +141,51 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     backgroundColor: "rgba(0,0,0, 0.1)",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: "column",
     width: 330,
     height: 500,
   },
-  cardsText: {
-    fontSize: 22,
+  cardsTextTitle: {
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '700',
+    paddingTop: 30,
+    paddingLeft: 10,
+    fontSize: 35,
+  },
+  cardsTextOrganization: {
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '500',
+    paddingTop: 4,
+    paddingLeft: 10,
+    fontSize: 12,
+  },
+  cardsTextLocation: {
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '500',
+    paddingLeft: 10,
+    fontSize: 12,
+  },
+  cardsTextTime: {
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '500',
+    textAlign: "right",
+    paddingRight: 10,
+    fontSize: 14,
+  },
+  cardsTextDate: {
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '500',
+    textAlign: "left",
+    paddingLeft: 10,
+    fontSize: 14,
+  },
+  cardsTextDescription: {
+    flex: 3,
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '500',
+    paddingLeft: 10,
+    fontStyle: "italic",
+    fontSize: 18,
   },
   loading: {flex: 0.3,
     fontWeight: "bold",

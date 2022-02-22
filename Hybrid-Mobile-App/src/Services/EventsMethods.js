@@ -17,9 +17,7 @@ const getEvents = async () => {
   const eventJson = result.ok ? await result.json() : "";
   const sortedEvents = eventJson.map((e) => formatevent(e)).sort(sortEventsByTime);
   const now = Date.now();
-  return sortedEvents
-    .filter((e) => new Date(e.Occurrences[0].StartDate).getTime() > now)
-    .sort(sortEventsByTime);
+  return sortedEvents.filter((e) => new Date(e.Occurrences[0].StartDate).getTime() > now).sort(sortEventsByTime);
 };
 
 /** FROM 360 UI
