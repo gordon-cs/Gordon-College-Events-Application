@@ -97,11 +97,21 @@ export default function EventCards() {
     // take likeBias array, add the liked ogranization, 
     // convert it to set to remove duplicates, 
     // convert it back to array and set likeBias to the new array
-    setLikeBias([...new Set([...likeBias, card.organization])]); 
+
+    // setLikeBias([...new Set([...likeBias, card.organization])]); 
+
+    // READ ME:
+    // Is there a purpose in a like bias? The point of the program is to expose users to events
+    // If we return all events but prioritize events liked, we just get the regular events array
+    // out of order
     return true; // return false if you wish to cancel the action
   }
 
   function handleNope(card) {
+    // READ ME:
+    // Should we have an alert that asks for all events under organization
+    // or just the ones with this title for better user involvement?
+    
     console.log(`Nope for ${card.title}\n`);
 
     // if disliked event is in savedIds, remove it
