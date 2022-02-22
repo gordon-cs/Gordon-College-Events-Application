@@ -81,11 +81,12 @@ function sortEventsByTime(a, b) {
 const getFilteredEvents = (events, keywords) => {
   const search = (event) => {
       return keywords.some(key =>
-        event.title.toLowerCase().includes(key.toLowerCase()) ||
-        event.Description.toLowerCase().includes(key.toLowerCase()) ||
+        //event.title.toLowerCase().includes(key.toLowerCase()) ||
+        //event.Description.toLowerCase().includes(key.toLowerCase()) ||
+        //event.location.toLowerCase().includes(key.toLowerCase()) ||
         event.organization.toLowerCase().includes(key.toLowerCase()) ||
-        event.location.toLowerCase().includes(key.toLowerCase())
-      )  
+        event.Event_ID.includes(key)
+      )
   };      
   
   if (events) {
@@ -95,41 +96,54 @@ const getFilteredEvents = (events, keywords) => {
   }
 };
 
-const getOrganizations = (events) => {
-  const organizations = new Set();
-  for (const event of events) {
-   organizations.add(event.Organization);
-  };
-  return organizations;
+/**
+ * @prerequisite - The array should have no duplicates from swipe methods in EventCards.js
+ * @param events - an array to remove a value from. 
+ * @param value - the value to remove.
+ * @returns events array without specified value
+ */
+const removeValueFromArray = (events, value) => {
+  for(const event in events){ 
+    if (events[event] === value) { 
+      events.splice(event, 1); 
+    }
+  }  
+  return events;
 }
 
-const generateEventsFromBias = (events, likeBias, dislikeBias) => {
+const generateEventsFromBias = (events, likeBias, dislikeBias, savedIds) => {
   const likedEvents = getFilteredEvents(events, likeBias);
   const dislikedEvents = getFilteredEvents(events, dislikeBias);
+  const swiped = getFilteredEvents(events, savedIds);
+
+  let result = [];
   // return events in liked events that do not match events in disliked events
-  if (likeBias.length === 0 && dislikeBias.length === 0) {
+  if ( likeBias.length === 0 && dislikeBias.length === 0 ) {
     console.log("neither liked or disliked");
     // if no bias just return all events
-    return events;
-  } else if (likeBias.length === 0) {
+    result = events;
+  } else if ( likeBias.length === 0 ) {
     console.log("Just disliked events");
     // if just dislike bias, return all events filtered through dislike bias
-    return events.filter(event => !dislikedEvents.includes(event));
-  } else if (dislikeBias.length === 0) {
+    result = events.filter(event => !dislikedEvents.includes(event));
+  } else if ( dislikeBias.length === 0 ) {
     console.log("Just liked events");
     // if just like bias, return all like bias events
-    return likedEvents;
+    result = likedEvents;
   } else {
     // must be that likeBias and dislikeBias are not empty
     // filter all liked events to remove any events with disliked event keywords
     console.log("Both liked and disliked events");
-    return likedEvents.filter(event => !dislikedEvents.includes(event));
+    result = likedEvents.filter(event => !dislikedEvents.includes(event));
   }
+
+  // remove events that have been swiped from view on re-filter
+  return result.filter(event => !swiped.includes(event));
 }
 
 const eventMethods = {
   getEvents,
-  getOrganizations,
+  removeValueFromArray,
   generateEventsFromBias,
 }
 

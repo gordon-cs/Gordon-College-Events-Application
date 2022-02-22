@@ -48,10 +48,11 @@ export default function EventCards() {
   const [events, setEvents] = useState([]);
   const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
-  const [savedEvents, setSavedEvents] = useState([]);
+  const [savedIds, setSavedIds] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // load events on render
+  // Load all events on reload
   useEffect(() => {
     const loadEvents = async() => {
       setEvents(await eventMethods.getEvents());
@@ -59,61 +60,83 @@ export default function EventCards() {
     }
     loadEvents();
   }, []);
+ 
+  // Load new Filter data on event or bias updates
+  useEffect(() => {
+    const loadFilteredEvents = async() => {
+      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias, savedIds));
+    }
+    loadFilteredEvents();
 
-  const liked = new Set();
-  const disliked = new Set();
-  const saved = new Set(); // set of ids of events to not be seen after swipe
-                                 // Are ids persistent or changed on get? 
+    // DBG
+    console.log('\n');
+    console.log("liked: ");
+    console.log(likeBias);
+    console.log('\n');
+    console.log("disliked: ")
+    console.log(dislikeBias);
+    console.log('\n');
+    console.log("saved: ")
+    console.log(savedIds);
+    console.log('\n');
+    // /DBG
+
+  }, [events, likeBias, dislikeBias, savedIds]);
+
   function handleYup(card) {
     console.log(`Yup for ${card.title}\n`);
-    if (disliked.has(card.organization)){
-      disliked.delete(card.organization);
+
+    // add event to ID's to save and hide from view
+    setSavedIds([...new Set([...savedIds, card.Event_ID])]); 
+
+    // if organization is in dislike remove it then add it to liked 
+    if (dislikeBias.includes(card.organization)){
+      setDislikeBias(eventMethods.removeValueFromArray(dislikeBias, card.organization));
     }
-    // DBG Start
-    liked.add(card.organization);
-    saved.add(card.Event_ID);
-    console.log("liked: ");
-    console.log(liked);
-    console.log('\n');
-    console.log("disliked: ")
-    console.log(disliked);
-    console.log('\n');
-    console.log("saved: ")
-    console.log(saved);
-    console.log('\n');
-    // DBG End
+
+    // take likeBias array, add the liked ogranization, 
+    // convert it to set to remove duplicates, 
+    // convert it back to array and set likeBias to the new array
+
+    // setLikeBias([...new Set([...likeBias, card.organization])]); 
+
+    // READ ME:
+    // Is there a purpose in a like bias? The point of the program is to expose users to events
+    // If we return all events but prioritize events liked, we just get the regular events array
+    // out of order
     return true; // return false if you wish to cancel the action
   }
-  function handleNope(card) {
-    console.log(`Nope for ${card.title}\n`);
-    if (liked.has(card.organization)){
-      liked.delete(card.organization);
-    }
-    // DBG Start
-    disliked.add(card.organization);
-    console.log("liked: ");
-    console.log(liked);
-    console.log('\n');
-    console.log("disliked: ")
-    console.log(disliked);
-    console.log('\n');
-    console.log("saved: ")
-    console.log(saved);
-    console.log('\n');
-    // DBG End
-    return true;
-  }
-  
-  const organizations = eventMethods.getOrganizations(events);
 
-  const filteredEvents = eventMethods.generateEventsFromBias(events, likeBias, dislikeBias);
+  function handleNope(card) {
+    // READ ME:
+    // Should we have an alert that asks for all events under organization
+    // or just the ones with this title for better user involvement?
+    
+    console.log(`Nope for ${card.title}\n`);
+
+    // if disliked event is in savedIds, remove it
+    if (savedIds.includes(card.Event_ID)){
+      setSavedIds(eventMethods.removeValueFromArray(savedIds, card.Event_ID));
+    }
+
+    // if organization is in like remove it then add it to disliked 
+    if (likeBias.includes(card.organization)){
+      setLikeBias(eventMethods.removeValueFromArray(likeBias, card.organization));
+    }
+    
+    // take dislikeBias array, add the disliked ogranization, 
+    // convert it to set to remove duplicates, 
+    // convert it back to array and set dislikeBias to the new array
+    setDislikeBias([...new Set([...dislikeBias, card.organization])]); 
+    return true; // return false if you wish to cancel the action
+  }
   
   let content;
   
   if (loading) {
     content = <StatusCard text="Loading..." />
   } else {
-    if (typeof filteredEvents === 'object') {
+    if (typeof events === 'object') {
       content =
         <SwipeCards
           cards={filteredEvents}
