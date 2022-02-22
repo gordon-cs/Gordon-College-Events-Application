@@ -48,6 +48,7 @@ export default function EventCards() {
   const [events, setEvents] = useState([]);
   const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
+  const [savedEvents, setSavedEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // load events on render
@@ -58,22 +59,29 @@ export default function EventCards() {
     }
     loadEvents();
   }, []);
-  
+
   const liked = new Set();
   const disliked = new Set();
-
+  const saved = new Set(); // set of ids of events to not be seen after swipe
+                                 // Are ids persistent or changed on get? 
   function handleYup(card) {
     console.log(`Yup for ${card.title}\n`);
     if (disliked.has(card.organization)){
       disliked.delete(card.organization);
     }
+    // DBG Start
     liked.add(card.organization);
+    saved.add(card.Event_ID);
     console.log("liked: ");
     console.log(liked);
     console.log('\n');
     console.log("disliked: ")
     console.log(disliked);
     console.log('\n');
+    console.log("saved: ")
+    console.log(saved);
+    console.log('\n');
+    // DBG End
     return true; // return false if you wish to cancel the action
   }
   function handleNope(card) {
@@ -81,6 +89,7 @@ export default function EventCards() {
     if (liked.has(card.organization)){
       liked.delete(card.organization);
     }
+    // DBG Start
     disliked.add(card.organization);
     console.log("liked: ");
     console.log(liked);
@@ -88,6 +97,10 @@ export default function EventCards() {
     console.log("disliked: ")
     console.log(disliked);
     console.log('\n');
+    console.log("saved: ")
+    console.log(saved);
+    console.log('\n');
+    // DBG End
     return true;
   }
   
