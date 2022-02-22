@@ -6,7 +6,7 @@ import { View, Text, Image, StyleSheet,StatusBar } from 'react-native';
 export const TopAppBar = () => {
 	return (
 	  <Appbar style={styles.top}>
-    <Text style={styles.topNavText}>GCSA</Text>
+      <Text style={styles.topNavText}>Gordon Events</Text>
     </Appbar>
 	);
 	}
@@ -22,26 +22,25 @@ export const TopAppBar = () => {
 
 const styles = StyleSheet.create({
   top: {
-    backgroundColor: 'blue',
+    backgroundColor: '#014983',
     position: 'absolute',
+    justifyContent: "center",
     left: 0,
     right: 0,
     top: 0,
   },
 
   topNavText: {
-    fontFamily: 'AppleSDGothicNeo-SemiBold',
-    fontWeight: 'bold',
+
+    fontFamily: 'Gotham SSm 7r',
+    fontWeight: '900',
+    color: 'white',
     fontSize: 20,
-    backgroundColor: 'blue',
-    position: 'absolute',
-    left: 10,
-    right: 0,
-    bottom: 0,
+    paddingTop: 16,
   },
 
   bottom: {
-    backgroundColor: 'blue',
+    backgroundColor: '#014983',
     position: 'absolute',
     left: 0,
     right: 0,
