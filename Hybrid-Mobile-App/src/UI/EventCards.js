@@ -35,8 +35,8 @@ function StatusCard({ text }) {
  */
 export default function EventCards() {
   const [events, setEvents] = useState([]);
-  const [likeBias, setLikeBias] = useState(["Afro", "Jazz", "Evening Chapel"]);
-  const [dislikeBias, setDislikeBias] = useState(["Evening Chapel"]); // must not be blank, or will include all events in dislike
+  const [likeBias, setLikeBias] = useState([]);
+  const [dislikeBias, setDislikeBias] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // load events on render
@@ -49,20 +49,21 @@ export default function EventCards() {
   }, []);
   
   function handleYup(card) {
-    console.log(`Yup for ${card.text}`);
+    console.log(`Yup for ${card.title}`);
     return true; // return false if you wish to cancel the action
   }
   function handleNope(card) {
-    console.log(`Nope for ${card.text}`);
+    console.log(`Nope for ${card.title}`);
     return true;
   }
   function handleMaybe(card) {
-    console.log(`Maybe for ${card.text}`);
+    console.log(`Maybe for ${card.title}`);
     return true;
   }
+  
+  const organizations = eventMethods.getOrganizations(events);
 
   const filteredEvents = eventMethods.generateEventsFromBias(events, likeBias, dislikeBias);
-
   
   let content;
   
