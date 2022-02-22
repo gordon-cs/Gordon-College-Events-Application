@@ -35,7 +35,8 @@ function StatusCard({ text }) {
  */
 export default function EventCards() {
   const [events, setEvents] = useState([]);
-  const [keywords, setKeywords] = useState(["Jazz", "Afro", "Evening Chapel"]);
+  const [likeBias, setLikeBias] = useState(["Afro", "Jazz", "Evening Chapel"]);
+  const [dislikeBias, setDislikeBias] = useState(["Evening Chapel"]); // must not be blank, or will include all events in dislike
   const [loading, setLoading] = useState(true);
   
   // load events on render
@@ -60,7 +61,8 @@ export default function EventCards() {
     return true;
   }
 
-  const filteredEvents = eventMethods.getFilteredEvents(events, keywords);
+  const filteredEvents = eventMethods.generateEventsFromBias(events, likeBias, dislikeBias);
+
   
   let content;
   

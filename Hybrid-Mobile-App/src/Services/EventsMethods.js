@@ -96,9 +96,17 @@ const getFilteredEvents = (events, keywords) => {
   }
 };
 
+const generateEventsFromBias = (events, likeBias, dislikeBias) => {
+  const likedEvents = getFilteredEvents(events, likeBias);
+  const dislikedEvents = getFilteredEvents(events, dislikeBias);
+  // return events in liked events that do not match events in disliked events
+  let difference = likedEvents.filter(event => !dislikedEvents.includes(event));
+  return difference; 
+}
+
 const eventMethods = {
   getEvents,
-  getFilteredEvents,
+  generateEventsFromBias,
 }
 
 export default eventMethods;
