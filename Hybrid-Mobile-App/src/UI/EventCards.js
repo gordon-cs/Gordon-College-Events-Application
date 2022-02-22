@@ -18,7 +18,7 @@ const Card = (props) => {
           <View style={{flex:1}}><Text style={styles.cardsTextTime}>{props.event.timeRange}</Text></View>
         </View> 
       </View>  
-      <View style={{flex: 1}}>
+      <View style={{paddingTop: 10, flex: 1}}>
         <Text style={styles.cardsTextOrganization}>Organization: {props.event.organization}</Text>
         <Text style={styles.cardsTextLocation}>Location: {props.event.location}</Text> 
       </View>
@@ -46,7 +46,7 @@ function StatusCard({ text }) {
  */
 export default function EventCards() {
   const [events, setEvents] = useState([]);
-  const [likeBias, setLikeBias] = useState(["Chapel"]);
+  const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -155,13 +155,17 @@ const styles = StyleSheet.create({
   cardsTextOrganization: {
     fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
-    paddingTop: 4,
+    flexWrap: 'wrap',
+    paddingRight: 10,
     paddingLeft: 10,
+    paddingTop: 4,
     fontSize: 12,
   },
   cardsTextLocation: {
     fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    paddingRight: 10,
     paddingLeft: 10,
     fontSize: 12,
   },
@@ -181,9 +185,11 @@ const styles = StyleSheet.create({
   },
   cardsTextDescription: {
     flex: 3,
+    flexWrap: 'wrap',
     fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     paddingLeft: 10,
+    paddingRight: 10,
     fontStyle: "italic",
     fontSize: 18,
   },
