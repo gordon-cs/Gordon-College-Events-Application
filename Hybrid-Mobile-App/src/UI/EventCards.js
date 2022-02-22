@@ -48,11 +48,11 @@ export default function EventCards() {
   const [events, setEvents] = useState([]);
   const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
-  const [savedEvents, setSavedEvents] = useState([]);
+  const [savedIds, setSavedIds] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // load events on render
+  // Load all events on reload
   useEffect(() => {
     const loadEvents = async() => {
       setEvents(await eventMethods.getEvents());
@@ -61,15 +61,14 @@ export default function EventCards() {
     loadEvents();
   }, []);
  
+  // Load new Filter data on event or bias updates
   useEffect(() => {
     const loadFilteredEvents = async() => {
-      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias));
+      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias, savedIds));
     }
     loadFilteredEvents();
 
-    const arr = [];
     // DBG
-    console.log(events.length);
     console.log('\n');
     console.log("liked: ");
     console.log(likeBias);
@@ -78,31 +77,48 @@ export default function EventCards() {
     console.log(dislikeBias);
     console.log('\n');
     console.log("saved: ")
-    console.log(savedEvents);
+    console.log(savedIds);
     console.log('\n');
-  }, [events, likeBias, dislikeBias, savedEvents]);
+    // /DBG
+
+  }, [events, likeBias, dislikeBias, savedIds]);
 
   function handleYup(card) {
     console.log(`Yup for ${card.title}\n`);
+
+    // add event to ID's to save and hide from view
+    setSavedIds([...new Set([...savedIds, card.Event_ID])]); 
+
+    // if organization is in dislike remove it then add it to liked 
     if (dislikeBias.includes(card.organization)){
       setDislikeBias(eventMethods.removeValueFromArray(dislikeBias, card.organization));
     }
+
     // take likeBias array, add the liked ogranization, 
     // convert it to set to remove duplicates, 
     // convert it back to array and set likeBias to the new array
     setLikeBias([...new Set([...likeBias, card.organization])]); 
     return true; // return false if you wish to cancel the action
   }
+
   function handleNope(card) {
     console.log(`Nope for ${card.title}\n`);
+
+    // if disliked event is in savedIds, remove it
+    if (savedIds.includes(card.Event_ID)){
+      setSavedIds(eventMethods.removeValueFromArray(savedIds, card.Event_ID));
+    }
+
+    // if organization is in like remove it then add it to disliked 
     if (likeBias.includes(card.organization)){
       setLikeBias(eventMethods.removeValueFromArray(likeBias, card.organization));
     }
+
     // take dislikeBias array, add the disliked ogranization, 
     // convert it to set to remove duplicates, 
     // convert it back to array and set dislikeBias to the new array
     setDislikeBias([...new Set([...dislikeBias, card.organization])]); 
-    return true;
+    return true; // return false if you wish to cancel the action
   }
   
   let content;
