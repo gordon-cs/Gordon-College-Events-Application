@@ -113,7 +113,7 @@ export default function EventCards() {
     if (likeBias.includes(card.organization)){
       setLikeBias(eventMethods.removeValueFromArray(likeBias, card.organization));
     }
-
+    
     // take dislikeBias array, add the disliked ogranization, 
     // convert it to set to remove duplicates, 
     // convert it back to array and set dislikeBias to the new array
