@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { EdgeInsetsPropType } from 'react-native';
 
 // All functions in this file have been taken from the 
 // Gordon 360 repo /src/services/events.js file and
@@ -16,9 +17,7 @@ const getEvents = async () => {
   const eventJson = result.ok ? await result.json() : "";
   const sortedEvents = eventJson.map((e) => formatevent(e)).sort(sortEventsByTime);
   const now = Date.now();
-  return sortedEvents
-    .filter((e) => new Date(e.Occurrences[0].StartDate).getTime() > now)
-    .sort(sortEventsByTime);
+  return sortedEvents.filter((e) => new Date(e.Occurrences[0].StartDate).getTime() > now).sort(sortEventsByTime);
 };
 
 /** FROM 360 UI
@@ -96,16 +95,41 @@ const getFilteredEvents = (events, keywords) => {
   }
 };
 
+const getOrganizations = (events) => {
+  const organizations = new Set();
+  for (const event of events) {
+   organizations.add(event.Organization);
+  };
+  return organizations;
+}
+
 const generateEventsFromBias = (events, likeBias, dislikeBias) => {
   const likedEvents = getFilteredEvents(events, likeBias);
   const dislikedEvents = getFilteredEvents(events, dislikeBias);
   // return events in liked events that do not match events in disliked events
-  let difference = likedEvents.filter(event => !dislikedEvents.includes(event));
-  return difference; 
+  if (likeBias.length === 0 && dislikeBias.length === 0) {
+    console.log("neither liked or disliked");
+    // if no bias just return all events
+    return events;
+  } else if (likeBias.length === 0) {
+    console.log("Just disliked events");
+    // if just dislike bias, return all events filtered through dislike bias
+    return events.filter(event => !dislikedEvents.includes(event));
+  } else if (dislikeBias.length === 0) {
+    console.log("Just liked events");
+    // if just like bias, return all like bias events
+    return likedEvents;
+  } else {
+    // must be that likeBias and dislikeBias are not empty
+    // filter all liked events to remove any events with disliked event keywords
+    console.log("Both liked and disliked events");
+    return likedEvents.filter(event => !dislikedEvents.includes(event));
+  }
 }
 
 const eventMethods = {
   getEvents,
+  getOrganizations,
   generateEventsFromBias,
 }
 
