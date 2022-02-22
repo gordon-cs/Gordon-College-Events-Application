@@ -49,6 +49,7 @@ export default function EventCards() {
   const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
   const [savedEvents, setSavedEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // load events on render
@@ -59,61 +60,57 @@ export default function EventCards() {
     }
     loadEvents();
   }, []);
-
-  const liked = new Set();
-  const disliked = new Set();
-  const saved = new Set(); // set of ids of events to not be seen after swipe
-                                 // Are ids persistent or changed on get? 
-  function handleYup(card) {
-    console.log(`Yup for ${card.title}\n`);
-    if (disliked.has(card.organization)){
-      disliked.delete(card.organization);
+ 
+  useEffect(() => {
+    const loadFilteredEvents = async() => {
+      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias));
     }
-    // DBG Start
-    liked.add(card.organization);
-    saved.add(card.Event_ID);
+    loadFilteredEvents();
+
+    const arr = [];
+    // DBG
+    console.log(events.length);
+    console.log('\n');
     console.log("liked: ");
-    console.log(liked);
+    console.log(likeBias);
     console.log('\n');
     console.log("disliked: ")
-    console.log(disliked);
+    console.log(dislikeBias);
     console.log('\n');
     console.log("saved: ")
-    console.log(saved);
+    console.log(savedEvents);
     console.log('\n');
-    // DBG End
+  }, [events, likeBias, dislikeBias, savedEvents]);
+
+  function handleYup(card) {
+    console.log(`Yup for ${card.title}\n`);
+    if (dislikeBias.includes(card.organization)){
+      setDislikeBias(eventMethods.removeValueFromArray(dislikeBias, card.organization));
+    }
+    // take likeBias array, add the liked ogranization, 
+    // convert it to set to remove duplicates, 
+    // convert it back to array and set likeBias to the new array
+    setLikeBias([...new Set([...likeBias, card.organization])]); 
     return true; // return false if you wish to cancel the action
   }
   function handleNope(card) {
     console.log(`Nope for ${card.title}\n`);
-    if (liked.has(card.organization)){
-      liked.delete(card.organization);
+    if (likeBias.includes(card.organization)){
+      setLikeBias(eventMethods.removeValueFromArray(likeBias, card.organization));
     }
-    // DBG Start
-    disliked.add(card.organization);
-    console.log("liked: ");
-    console.log(liked);
-    console.log('\n');
-    console.log("disliked: ")
-    console.log(disliked);
-    console.log('\n');
-    console.log("saved: ")
-    console.log(saved);
-    console.log('\n');
-    // DBG End
+    // take dislikeBias array, add the disliked ogranization, 
+    // convert it to set to remove duplicates, 
+    // convert it back to array and set dislikeBias to the new array
+    setDislikeBias([...new Set([...dislikeBias, card.organization])]); 
     return true;
   }
-  
-  const organizations = eventMethods.getOrganizations(events);
-
-  const filteredEvents = eventMethods.generateEventsFromBias(events, likeBias, dislikeBias);
   
   let content;
   
   if (loading) {
     content = <StatusCard text="Loading..." />
   } else {
-    if (typeof filteredEvents === 'object') {
+    if (typeof events === 'object') {
       content =
         <SwipeCards
           cards={filteredEvents}
