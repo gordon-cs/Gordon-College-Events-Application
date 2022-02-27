@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: 330,
     height: 500,
+    
   },
   cardsTextTitle: {
     fontFamily: 'Gotham SSm 7r',

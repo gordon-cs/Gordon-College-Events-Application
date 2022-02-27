@@ -2,6 +2,8 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { BottomAppBar, TopAppBar } from './src/UI/AppBar.js';
 import React, { Component, useEffect, useState } from 'react';
 import EventCards from './src/UI/EventCards.js';
+import UndoPreference from './src/UI/UndoPreference.js';
+import {ReturnButton,AppButton} from './src/UI/UndoPreference.js';
 
 
 const App = () => {
@@ -10,6 +12,8 @@ const App = () => {
         <TopAppBar/>
         <EventCards/>
         <BottomAppBar/>
+        <ReturnButton/>
+        <AppButton/>
       </View>
     );
 }
