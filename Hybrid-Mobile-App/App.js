@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Colors } from 'react-native';
 import { BottomAppBar, TopAppBar } from './src/UI/AppBar.js';
 import React, { Component, useEffect, useState } from 'react';
 import EventCards from './src/UI/EventCards.js';
 import UndoPreference from './src/UI/UndoPreference.js';
-import {ReturnButton,AppButton} from './src/UI/UndoPreference.js';
+import {UndoButton} from './src/UI/UndoPreference.js';
+
 
 
 const App = () => {
@@ -14,9 +15,8 @@ const App = () => {
         <EventCards/>
         </View>
         <BottomAppBar/>
-        <View style={{bottom:2, justifyContent:'center',paddingTop:10}}>
-        <ReturnButton/>
-        <AppButton/>
+        <View style={{bottom:25, }}>
+        <UndoButton/>
         </View>
       </View>
     );
