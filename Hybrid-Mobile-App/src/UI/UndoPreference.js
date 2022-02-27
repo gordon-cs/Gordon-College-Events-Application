@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ActionSheetIOS, Button, StyleSheet, Text, View, } from "react-native";
 
 export const UndoButton = () => {
-  const [result, setResult] = useState("Undo");
+  const [result, setResult] = useState("");
 
   const onPress = () =>
     ActionSheetIOS.showActionSheetWithOptions(
