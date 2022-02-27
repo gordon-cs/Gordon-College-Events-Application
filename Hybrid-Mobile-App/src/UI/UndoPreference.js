@@ -1,33 +1,52 @@
-import React from "react";
-import {Alert,StyleSheet,Text,View,Button,} from 'react-native';
-
+import React, { useState } from "react";
+import { ActionSheetIOS, Button, StyleSheet, Text, View, } from "react-native";
 
 export const UndoButton = () => {
-	return (
-    
-	  <Button 
-      title = {"Undo!"} onPress={simpleDialog}> 
-    </Button>
-    
-	);
-	}
+  const [result, setResult] = useState("Undo");
 
-  export const simpleDialog = () =>
-  Alert.alert(
-    "Undo!",
-    "Are you sure you want to undo your preference?",
-    [
-      { text: "Yes" },
-      { text: "No" }
-    ]
+  const onPress = () =>
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ["Cancel", "Yes", "No"],
+        destructiveButtonIndex: 2,
+        cancelButtonIndex: 0,
+        userInterfaceStyle: 'dark'
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          // cancel action
+        } else if (buttonIndex === 1) {
+          setResult("");
+        } else if (buttonIndex === 2) {
+          setResult("");
+        }
+      }
+    );
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.result}>{result}</Text>
+      <Button onPress={onPress} title="↩️Undo" />
+    </View>
   );
-  const styles = StyleSheet.create({
-    undobutton: {
-      backgroundColor: 'yellow',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }
-  });
+};
+
+const styles = StyleSheet.create({
+  container: {
+    bottom: 5,
+    borderRadius: 20,
+    borderBottomLeftRadius: 20,
+    justifyContent: "center",
+    fontWeight: "bold",
+
+  },
+  result: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+  }
+});
+
   
 
 
