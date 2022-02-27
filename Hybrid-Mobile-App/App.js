@@ -15,7 +15,7 @@ const App = () => {
         <EventCards/>
         </View>
         <BottomAppBar/>
-        <View style={{bottom:25, }}>
+        <View style={{bottom:25,backgroundColor:'white',borderRadius:7 }}>
         <UndoButton/>
         </View>
       </View>
