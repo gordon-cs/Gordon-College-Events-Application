@@ -10,13 +10,20 @@ const App = () => {
     return (
       <View style={styles.container}>
         <TopAppBar/>
+        <View style={{bottom:15, justifyContent:'center',top: 20, paddingTop:10}}>
         <EventCards/>
+        </View>
         <BottomAppBar/>
+        <View style={{bottom:2, justifyContent:'center',paddingTop:10}}>
         <ReturnButton/>
         <AppButton/>
+        </View>
       </View>
     );
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +32,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  Buttoncontainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+
 });
 
 export default App;
