@@ -174,9 +174,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "rgb(200,200,200)",
     flexDirection: "column",
-
-    width: 330,
-    height: 500,
     
     width: Dimensions.get('window').width * 0.88,
     height: Dimensions.get('window').height * 0.75,
