@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import eventMethods from '../Services/EventsMethods.js';
 import SwipeCards from "react-native-swipe-cards-deck";
 
@@ -131,6 +131,8 @@ export default function EventCards() {
     return true; // return false if you wish to cancel the action
   }
   
+  console.log(Dimensions.get('window').height);
+
   let content;
   
   if (loading) {
@@ -148,10 +150,6 @@ export default function EventCards() {
             nope: { onAction: handleNope },
             yup: { onAction: handleYup },
           }}
-
-          // If you want a stack of cards instead of one-per-one view, activate stack mode
-          // stack={true}
-          // stackDepth={3}
         />
     } else {
       content = <Text>No more Events for this keyword</Text>
@@ -160,9 +158,7 @@ export default function EventCards() {
   
   return(
     <View>
-         <Text style={loading}>
-            {content}
-         </Text>
+      {content}
     </View>
   );
 }
@@ -176,11 +172,15 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 15,
-    backgroundColor: "rgba(0,0,0, 0.1)",
+    backgroundColor: "rgb(200,200,200)",
     flexDirection: "column",
+
     width: 330,
     height: 500,
     
+    width: Dimensions.get('window').width * 0.88,
+    height: Dimensions.get('window').height * 0.75,
+
   },
   cardsTextTitle: {
     fontFamily: 'Gotham SSm 7r',

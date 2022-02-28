@@ -1,5 +1,5 @@
 import { Appbar } from 'react-native-paper';
-import { View, Text, Image, StyleSheet,StatusBar } from 'react-native';
+import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 
 
 
@@ -14,7 +14,6 @@ export const TopAppBar = () => {
   export const BottomAppBar = () => {
     return (
       <Appbar style={styles.bottom}>
-      
       </Appbar>
     );
     }
@@ -22,6 +21,7 @@ export const TopAppBar = () => {
 
 const styles = StyleSheet.create({
   top: {
+    flex: 1,
     backgroundColor: '#014983',
     position: 'absolute',
     justifyContent: "center",
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
 
   topNavText: {
-
     fontFamily: 'Gotham SSm 7r',
     fontWeight: '900',
     color: 'white',
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
   },
 
   bottom: {
+    flex: 1, 
     backgroundColor: '#014983',
     position: 'absolute',
     left: 0,
