@@ -25,7 +25,7 @@ const App = () => {
         </View>
       </View>
     );
-=======
+
 function EventsSwipe() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
