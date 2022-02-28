@@ -33,7 +33,7 @@ export const UndoButton = () => {
 
 const styles = StyleSheet.create({
   container: {
-    bottom: 5,
+    bottom: 10,
     borderRadius: 20,
     borderBottomLeftRadius: 20,
     justifyContent: "center",

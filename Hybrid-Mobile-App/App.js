@@ -30,12 +30,14 @@ export const App = () => {
 function EventsSwipe({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{padding: 10}}>
+      <View style={{top: 5,bottom: 2, padding: 10}}>
         <Button
           title="Go to Upcoming"
           onPress={() => navigation.navigate('Upcoming')}
         />
+        <View style={{bottom: 5}}>
         <EventCards/>
+        </View>
       </View>  
     </View>
   );
@@ -91,7 +93,7 @@ const App = () => {
         />
       </Stack.Navigator>
       <BottomAppBar/>
-      <View style={{bottom:26.5,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
+      <View style={{bottom:3,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
         <UndoButton/>
       </View>
     </NavigationContainer>
