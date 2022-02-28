@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { EdgeInsetsPropType } from 'react-native';
 
 // All functions in this file have been taken from the 
 // Gordon 360 repo /src/services/events.js file and
@@ -142,6 +141,7 @@ const generateEventsFromBias = (events, likeBias, dislikeBias, savedIds) => {
 }
 
 const eventMethods = {
+  getFilteredEvents,
   getEvents,
   removeValueFromArray,
   generateEventsFromBias,

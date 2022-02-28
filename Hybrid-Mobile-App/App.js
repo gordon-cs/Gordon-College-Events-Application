@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, SafeAreaView, Image, Colors } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Button, Image, Colors } from 'react-native';
 import { BottomAppBar, TopAppBar } from './src/UI/AppBar.js';
 import React, { Component, useEffect, useState } from 'react';
 import EventMethods from './src/Services/EventsMethods.js'
@@ -7,11 +7,10 @@ import UndoPreference from './src/UI/UndoPreference.js';
 import {UndoButton} from './src/UI/UndoPreference.js';
 import UpcomingListView from './src/UI/UpcomingEventsView.js';
 import { NavigationContainer } from '@react-navigation/native';
-//import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-const Stack = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 /*
 export const App = () => {
@@ -28,20 +27,28 @@ export const App = () => {
       </View>
     );
 */
-function EventsSwipe() {
+function EventsSwipe({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View style={{padding: 10}}>
+        <Button
+          title="Go to Upcoming"
+          onPress={() => navigation.navigate('Upcoming')}
+        />
         <EventCards/>
       </View>  
     </View>
   );
 }
 
-function UpcomingList() {
+function UpcomingList({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View style={{padding: 10}}>
+        <Button
+          title="Go to Events"
+          onPress={() => navigation.navigate('Home')}
+        />
         <UpcomingListView/>
       </View>  
     </View>
@@ -51,14 +58,11 @@ function UpcomingList() {
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-          tabBarActiveBackgroundColor: '#014983',
-          tabBarActiveTintColor: '#014983',
-        }}>
+      <Stack.Navigator>
         <Stack.Screen 
           name="Home" 
           component={EventsSwipe}
-          options={{
+          options={{ 
             headerStyle: {
               backgroundColor: '#014983',
             },
@@ -86,6 +90,7 @@ const App = () => {
           }}
         />
       </Stack.Navigator>
+      <BottomAppBar/>
       <View style={{bottom:26.5,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
         <UndoButton/>
       </View>
@@ -109,11 +114,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-
-  bars: {
-    backgroundColor: '#014983',
   },
 });
 

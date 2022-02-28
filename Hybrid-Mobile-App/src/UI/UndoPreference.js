@@ -16,7 +16,7 @@ export const UndoButton = () => {
         if (buttonIndex === 0) {
           // cancel action
         } else if (buttonIndex === 1) {
-          setResult("");
+          setResult("hello");
         } else if (buttonIndex === 2) {
           setResult("");
         }

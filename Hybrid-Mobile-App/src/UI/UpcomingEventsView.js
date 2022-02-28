@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import EventCards, { savedIds, events } from './EventCards.js';
+import eventMethods from '../Services/EventsMethods.js';
 
 const DATA = [
   {
@@ -23,17 +25,43 @@ const Item = ({ title }) => (
 );
 
 const App = () => {
+  const [savedEvents, setSavedEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // Load all events on reload
+  useEffect(() => {
+    const loadSavedEvents = async() => {
+      setSavedEvents(eventMethods.getFilteredEvents(events, savedIds));
+      setLoading(false);
+      console.log("Saved Ids from Upcoming: ")
+      console.log(EventCards.savedIds);
+    }
+    loadSavedEvents();
+  }, [savedIds, events]);
+
   const renderItem = ({ item }) => (
     <Item title={item.title}/>
   );
 
-  return (
-    <View style={styles.container}>
+  let content;
+
+  if (loading) {
+    content = <Text>Loading...</Text>
+  } else {
+    if(savedEvents != []){
+      content = 
       <FlatList
-        data={DATA}
+        data={savedEvents}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
+    } else {
+      content = <Text>No Saved Events</Text>
+    }  
+  }
+
+  return (
+    <View style={styles.container}>
+      {content}
     </View> 
   );
 }
