@@ -12,7 +12,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 const Stack = createBottomTabNavigator();
-const App = () => {
+
+/*
+export const App = () => {
     return (
       <View style={styles.container}>
         <TopAppBar/>
@@ -25,7 +27,7 @@ const App = () => {
         </View>
       </View>
     );
-
+*/
 function EventsSwipe() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -84,6 +86,9 @@ const App = () => {
           }}
         />
       </Stack.Navigator>
+      <View style={{bottom:26.5,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
+        <UndoButton/>
+      </View>
     </NavigationContainer>
   );
 }
@@ -113,4 +118,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
