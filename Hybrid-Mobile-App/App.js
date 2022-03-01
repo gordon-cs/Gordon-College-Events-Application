@@ -42,7 +42,10 @@ const App = () => {
           name="Events"
           component={Events}
           options={{ 
-            headerShown: false,
+            headerShown: true, 
+            // I think should be false because button cannot be
+            // placed in header from EventCards right? 
+            // maybe use app bar? 
             headerStyle: {
               backgroundColor: '#014983',
             },
