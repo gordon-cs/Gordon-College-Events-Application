@@ -3,8 +3,6 @@ import { BottomAppBar, TopAppBar } from './src/UI/AppBar.js';
 import React, { Component, useEffect, useState } from 'react';
 import EventMethods from './src/Services/EventsMethods.js'
 import EventCards from './src/UI/EventCards.js';
-import UndoPreference from './src/UI/UndoPreference.js';
-import {UndoButton} from './src/UI/UndoPreference.js';
 import UpcomingListView from './src/UI/UpcomingEventsView.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

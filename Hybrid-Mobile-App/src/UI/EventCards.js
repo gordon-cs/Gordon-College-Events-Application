@@ -49,7 +49,7 @@ function StatusCard({ text }) {
 const EventCards = ({ navigation }) => {
   const [events, setEvents] = useState([]);
   const [likeBias, setLikeBias] = useState([]);
-  const [dislikeBias, setDislikeBias] = useState([]);
+  const [dislikeBias, setDislikeBias] = useState(["Registrar"]); // Ignore all registrar events by default
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [saved, setSaved] = useState([]);
   const [loading, setLoading] = useState(true);

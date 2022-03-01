@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import { BottomAppBar } from './AppBar.js';
 
-const Item = ({ title }) => (
+const Item = ({ title, date, location, timeRange }) => (
   <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+    <View style={{flexDirection: "row"}}>
+      <Text numberOfLines={1} style={styles.title}>{title}</Text>
+      <Text numberOfLines={1} style={styles.text}>{location}</Text>
+    </View>
+    <View style={{flexDirection: "row", marginVertical: 8}}>
+      <Text style={styles.text, {textAlign: "left"}}>{date}</Text>
+      <Text style={styles.text, {textAlign: "right"}}>{timeRange}</Text>
+    </View>
   </View>
 );
 
@@ -24,7 +31,12 @@ const UpcomingEvents = (props) => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <Item title={item.title}/>
+    <Item 
+      title={item.title} 
+      location={item.location} 
+      date={item.date} 
+      timeRange={item.timeRange}
+    />
   );
 
   let content;
@@ -60,17 +72,24 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   item: {
+    flex: 1,
+    flexDirection: 'column',
     borderRadius: 15,
     backgroundColor: "rgb(200,200,200)",
     padding: 20,
     marginVertical: 8,
     width: Dimensions.get('window').width * 0.88,
   },
+  
   title: {
-    flexWrap: 'wrap',
-    //fontFamily: 'Gotham SSm 7r',
+    flex: 1,
     fontWeight: '700',
     fontSize: 18,
+  },
+  text: {
+    flex: 1,
+    fontWeight: '500',
+    fontSize: 12,
   },
 });
 
