@@ -50,9 +50,25 @@ const UpcomingEvents = (props) => {
         data={savedEvents}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        ListEmptyComponent={
+        <View style={{
+            fontSize: 20, 
+            fontWeight: '500',
+            flex: 1, 
+            alignItems: 'center', 
+            justifyContent: 'center'
+          }}
+        >
+          <Text style={{
+            fontSize: 20, 
+            fontWeight: '700',
+            marginVertical: Dimensions.get('window').height * 0.3,
+          }}>No Saved Events</Text>
+        </View>  
+        }
       />
     } else {
-      content = <Text>No Saved Events</Text>
+      content = <Text>No Saved Events Yet</Text>
     }  
   }
 

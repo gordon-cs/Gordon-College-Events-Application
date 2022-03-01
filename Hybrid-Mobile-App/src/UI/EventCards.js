@@ -24,7 +24,7 @@ const Card = (props) => {
         <Text style={styles.cardsTextOrganization}>Organization: {props.event.organization}</Text>
         <Text style={styles.cardsTextLocation}>Location: {props.event.location}</Text> 
       </View>
-      <Text adjustsFontSizeToFit numberOfLines={8} style={styles.cardsTextDescription}>"{props.event.Description}"</Text>
+      <Text adjustsFontSizeToFit numberOfLines={50} style={styles.cardsTextDescription}>"{props.event.Description}"</Text>
     </View>
   );
 }
@@ -132,7 +132,7 @@ const EventCards = ({ navigation }) => {
     setDislikeBias([...new Set([...dislikeBias, card.organization])]); 
     return true; // return false if you wish to cancel the action
   }
-  
+
   console.log(Dimensions.get('window').height);
 
   let content;
