@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flexWrap: 'wrap',
-    fontFamily: 'Gotham SSm 7r',
+    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '700',
     fontSize: 18,
   },

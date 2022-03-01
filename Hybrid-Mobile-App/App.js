@@ -50,7 +50,7 @@ const App = () => {
               backgroundColor: '#014983',
             },
             headerTitleStyle: {
-              fontFamily: 'Gotham SSm 7r',
+              //fontFamily: 'Gotham SSm 7r',
               fontWeight: '900',
               color: 'white',
               fontSize: 20,
@@ -65,7 +65,7 @@ const App = () => {
               backgroundColor: '#014983',
             },
             headerTitleStyle: {
-              fontFamily: 'Gotham SSm 7r',
+              //fontFamily: 'Gotham SSm 7r',
               fontWeight: '900',
               color: 'white',
               fontSize: 20,

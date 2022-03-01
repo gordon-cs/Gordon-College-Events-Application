@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 
   topNavText: {
-    fontFamily: 'Gotham SSm 7r',
+    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '900',
     color: 'white',
     fontSize: 20,
