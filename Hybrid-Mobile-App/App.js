@@ -8,63 +8,41 @@ import {UndoButton} from './src/UI/UndoPreference.js';
 import UpcomingListView from './src/UI/UpcomingEventsView.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 
 
 const Stack = createNativeStackNavigator();
 
-/*
-export const App = () => {
+const App = () => {
+
+  const Events = ({ navigation }) => {
     return (
-      <View style={styles.container}>
-        <TopAppBar/>
-        <View style={{bottom:15, justifyContent:'center',top: 20, paddingTop:10}}>
-        <EventCards/>
-        </View>
-        <BottomAppBar/>
-        <View style={{bottom:26.5,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
-        <UndoButton/>
-        </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{padding: 10}}>
+          <EventCards navigation={navigation}/>
+        </View>  
+      </View>
+    )
+  }
+
+  const UpcomingList = ({ navigation, route }) => {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{padding: 10}}>
+          <UpcomingListView savedEvents={route.params.savedEvents }/>
+        </View>  
       </View>
     );
-*/
-function EventsSwipe({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{top: 5,bottom: 2, padding: 10}}>
-        <Button
-          title="Go to Upcoming"
-          onPress={() => navigation.navigate('Upcoming')}
-        />
-        <View style={{bottom: 5}}>
-        <EventCards/>
-        </View>
-      </View>  
-    </View>
-  );
-}
-
-function UpcomingList({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{padding: 10}}>
-        <Button
-          title="Go to Events"
-          onPress={() => navigation.navigate('Home')}
-        />
-        <UpcomingListView/>
-      </View>  
-    </View>
-  );
-}
-
-const App = () => {
+  }
+  
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-          name="Home" 
-          component={EventsSwipe}
+          name="Events"
+          component={Events}
           options={{ 
+            headerShown: false,
             headerStyle: {
               backgroundColor: '#014983',
             },
@@ -92,10 +70,6 @@ const App = () => {
           }}
         />
       </Stack.Navigator>
-      <BottomAppBar/>
-      <View style={{bottom:3,backgroundColor:'rgba(0,0,0, 0.4)',borderRadius:8,height: 50,fontWeight: "bold",}}>
-        <UndoButton/>
-      </View>
     </NavigationContainer>
   );
 }

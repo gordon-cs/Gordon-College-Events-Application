@@ -1,7 +1,9 @@
 import React, { useState, useEffect, Component } from "react";
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Button } from 'react-native';
 import eventMethods from '../Services/EventsMethods.js';
 import SwipeCards from "react-native-swipe-cards-deck";
+import { TopAppBar, BottomAppBar } from './AppBar.js';
+import { NavigationContainer } from '@react-navigation/native';
 
 /** Card component
  *
@@ -44,12 +46,12 @@ function StatusCard({ text }) {
  *
  * @returns A stack of swipable cards each with event data
  */
-export default function EventCards() {
+const EventCards = ({ navigation }) => {
   const [events, setEvents] = useState([]);
   const [likeBias, setLikeBias] = useState([]);
   const [dislikeBias, setDislikeBias] = useState([]);
-  const [savedIds, setSavedIds] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
+  const [saved, setSaved] = useState([]);
   const [loading, setLoading] = useState(true);
   
   // Load all events on reload
@@ -64,7 +66,7 @@ export default function EventCards() {
   // Load new Filter data on event or bias updates
   useEffect(() => {
     const loadFilteredEvents = async() => {
-      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias, savedIds));
+      setFilteredEvents(eventMethods.generateEventsFromBias(events, likeBias, dislikeBias, saved));
     }
     loadFilteredEvents();
 
@@ -77,17 +79,17 @@ export default function EventCards() {
     console.log(dislikeBias);
     console.log('\n');
     console.log("saved: ")
-    console.log(savedIds);
+    console.log(saved);
     console.log('\n');
     // /DBG
 
-  }, [events, likeBias, dislikeBias, savedIds]);
+  }, [events, likeBias, dislikeBias, saved]);
 
   function handleYup(card) {
     console.log(`Yup for ${card.title}\n`);
 
     // add event to ID's to save and hide from view
-    setSavedIds([...new Set([...savedIds, card.Event_ID])]); 
+    setSaved([...new Set([...saved, card])]); 
 
     // if organization is in dislike remove it then add it to liked 
     if (dislikeBias.includes(card.organization)){
@@ -114,9 +116,9 @@ export default function EventCards() {
     
     console.log(`Nope for ${card.title}\n`);
 
-    // if disliked event is in savedIds, remove it
-    if (savedIds.includes(card.Event_ID)){
-      setSavedIds(eventMethods.removeValueFromArray(savedIds, card.Event_ID));
+    // if disliked event is in saved, remove it
+    if (saved.includes(card.Event_ID)){
+      setSaved(eventMethods.removeValueFromArray(saved, card.Event_ID));
     }
 
     // if organization is in like remove it then add it to disliked 
@@ -136,7 +138,7 @@ export default function EventCards() {
   let content;
   
   if (loading) {
-    content = <StatusCard text="Loading..." />
+    content = <Text style={styles.loading}>Loading...</Text>
   } else {
     if (typeof events === 'object') {
       content =
@@ -152,16 +154,24 @@ export default function EventCards() {
           }}
         />
     } else {
-      content = <Text>No more Events for this keyword</Text>
+      content = <Text style={styles.loading}>No More Cards</Text>
     }
   }
   
   return(
     <View>
+      <Button
+        title="Go to Upcoming"
+        onPress={() => 
+          navigation.navigate('Upcoming', { savedEvents: saved })
+        }
+      />
       {content}
     </View>
   );
 }
+
+export default EventCards;
 
 const styles = StyleSheet.create({
   container: {
@@ -171,13 +181,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   card: {
+    alignSelf: "center",
     borderRadius: 15,
     backgroundColor: "rgb(200,200,200)",
     flexDirection: "column",
-    
     width: Dimensions.get('window').width * 0.88,
     height: Dimensions.get('window').height * 0.75,
-
   },
   cardsTextTitle: {
     fontFamily: 'Gotham SSm 7r',

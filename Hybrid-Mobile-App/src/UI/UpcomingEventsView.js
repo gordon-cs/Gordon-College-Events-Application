@@ -1,22 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
-import EventCards, { savedIds, events } from './EventCards.js';
-import eventMethods from '../Services/EventsMethods.js';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Morning Chapel',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Afro Hamwe Party',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Evening Chapel',
-  },
-];
+import { Dimensions, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import { BottomAppBar } from './AppBar.js';
 
 const Item = ({ title }) => (
   <View style={styles.item}>
@@ -24,19 +8,20 @@ const Item = ({ title }) => (
   </View>
 );
 
-const App = () => {
+const UpcomingEvents = (props) => {
   const [savedEvents, setSavedEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   // Load all events on reload
   useEffect(() => {
-    const loadSavedEvents = async() => {
-      setSavedEvents(eventMethods.getFilteredEvents(events, savedIds));
+    const loadEvents = async() => {
+      setSavedEvents(props.savedEvents);
       setLoading(false);
-      console.log("Saved Ids from Upcoming: ")
-      console.log(EventCards.savedIds);
+
+      console.log("Saved Ids from Upcoming: ") // DBG
+      console.log(savedEvents);                // DBG
     }
-    loadSavedEvents();
-  }, [savedIds, events]);
+    loadEvents();
+  }, []);
 
   const renderItem = ({ item }) => (
     <Item title={item.title}/>
@@ -69,6 +54,8 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: "rgb(242, 242, 242)",
     height: Dimensions.get('window').height,
   },
@@ -87,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default UpcomingEvents;

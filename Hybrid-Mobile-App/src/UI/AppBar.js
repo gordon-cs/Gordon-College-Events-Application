@@ -1,12 +1,12 @@
 import { Appbar } from 'react-native-paper';
-import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 
 
-export const TopAppBar = () => {
+export const TopAppBar = (props) => {
 	return (
 	  <Appbar style={styles.top}>
-      <Text style={styles.topNavText}>Gordon Events</Text>
+      <Text style={styles.topNavText}>{props.title}</Text>
     </Appbar>
 	);
 	}

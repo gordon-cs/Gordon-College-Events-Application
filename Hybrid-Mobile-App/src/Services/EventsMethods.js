@@ -83,8 +83,7 @@ const getFilteredEvents = (events, keywords) => {
         //event.title.toLowerCase().includes(key.toLowerCase()) ||
         //event.Description.toLowerCase().includes(key.toLowerCase()) ||
         //event.location.toLowerCase().includes(key.toLowerCase()) ||
-        event.organization.toLowerCase().includes(key.toLowerCase()) ||
-        event.Event_ID.includes(key)
+        event.organization.toLowerCase().includes(key.toLowerCase())
       )
   };      
   
@@ -110,10 +109,9 @@ const removeValueFromArray = (events, value) => {
   return events;
 }
 
-const generateEventsFromBias = (events, likeBias, dislikeBias, savedIds) => {
+const generateEventsFromBias = (events, likeBias, dislikeBias, saved) => {
   const likedEvents = getFilteredEvents(events, likeBias);
   const dislikedEvents = getFilteredEvents(events, dislikeBias);
-  const swiped = getFilteredEvents(events, savedIds);
 
   let result = [];
   // return events in liked events that do not match events in disliked events
@@ -137,7 +135,7 @@ const generateEventsFromBias = (events, likeBias, dislikeBias, savedIds) => {
   }
 
   // remove events that have been swiped from view on re-filter
-  return result.filter(event => !swiped.includes(event));
+  return result.filter(event => !saved.includes(event));
 }
 
 const eventMethods = {
