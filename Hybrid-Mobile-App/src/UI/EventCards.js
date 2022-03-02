@@ -163,7 +163,7 @@ const EventCards = ({ navigation }) => {
       <Button
         title="Go to Upcoming"
         onPress={() => 
-          navigation.navigate('Upcoming', { savedEvents: saved })
+          navigation.navigate('Saved', { savedEvents: saved })
         }
       />
       {content}

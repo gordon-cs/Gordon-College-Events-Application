@@ -56,7 +56,7 @@ const App = () => {
           }}
         />
         <Stack.Screen 
-          name="Upcoming" 
+          name="Saved" 
           component={UpcomingList}
           options={{
             headerStyle: {

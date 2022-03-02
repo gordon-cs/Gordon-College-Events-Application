@@ -5,12 +5,12 @@ import { BottomAppBar } from './AppBar.js';
 const Item = ({ title, date, location, timeRange }) => (
   <View style={styles.item}>
     <View style={{flexDirection: "row"}}>
-      <Text numberOfLines={1} style={styles.title}>{title}</Text>
-      <Text numberOfLines={1} style={styles.text}>{location}</Text>
+      <Text numberOfLines={1} style={{fontWeight: '700', paddingRight: 10, fontSize: 18, flex: 1, textAlign: "left"}}>{title}</Text>
+      <Text numberOfLines={1} style={{paddingTop: 3.5, paddingLeft: 10, flex: 1, textAlign: "right"}}>{location}</Text>
     </View>
-    <View style={{flexDirection: "row", marginVertical: 8}}>
-      <Text style={styles.text, {textAlign: "left"}}>{date}</Text>
-      <Text style={styles.text, {textAlign: "right"}}>{timeRange}</Text>
+    <View style={{flexDirection: "row", paddingTop: 8}}>
+      <Text style={{flex: 1, paddingRight: 10, textAlign: "left"}}>{date}</Text>
+      <Text style={{flex: 1, paddingLeft: 10, textAlign: "right"}}>{timeRange}</Text>
     </View>
   </View>
 );
@@ -98,12 +98,10 @@ const styles = StyleSheet.create({
   },
   
   title: {
-    flex: 1,
     fontWeight: '700',
     fontSize: 18,
   },
   text: {
-    flex: 1,
     fontWeight: '500',
     fontSize: 12,
   },
