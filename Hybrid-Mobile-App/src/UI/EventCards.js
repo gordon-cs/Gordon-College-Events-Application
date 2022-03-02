@@ -1,9 +1,10 @@
 import React, { useState, useEffect, Component } from "react";
-import { Dimensions, StyleSheet, Text, View, Button } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Button,  } from 'react-native';
 import eventMethods from '../Services/EventsMethods.js';
 import SwipeCards from "react-native-swipe-cards-deck";
 import { TopAppBar, BottomAppBar } from './AppBar.js';
 import { NavigationContainer } from '@react-navigation/native';
+
 
 /** Card component
  *
@@ -159,9 +160,10 @@ const EventCards = ({ navigation }) => {
   }
   
   return(
-    <View>
+    
+    <View style={{alignItems:'flex-end', }}>
       <Button
-        title="Go to Upcoming"
+        title="Saved 》"
         onPress={() => 
           navigation.navigate('Saved', { savedEvents: saved })
         }
