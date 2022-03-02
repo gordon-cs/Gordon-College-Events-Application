@@ -1,10 +1,7 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Dimensions, StyleSheet, Text, View, Button,  } from 'react-native';
 import eventMethods from '../Services/EventsMethods.js';
 import SwipeCards from "react-native-swipe-cards-deck";
-import { TopAppBar, BottomAppBar } from './AppBar.js';
-import { NavigationContainer } from '@react-navigation/native';
-
 
 /** Card component
  *
@@ -148,7 +145,6 @@ const EventCards = ({ navigation }) => {
           renderCard={(cardData) => <Card event={cardData} />}
           keyExtractor={(cardData) => String(cardData.text)}
           renderNoMoreCards={() => <StatusCard text="No more cards..." />}
-          //loop={true} //Return to frst card after cards run out
           actions={{
             nope: { onAction: handleNope },
             yup: { onAction: handleYup },
@@ -192,14 +188,12 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.75,
   },
   cardsTextTitle: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '700',
     paddingTop: 30,
     paddingLeft: 10,
     fontSize: 35,
   },
   cardsTextOrganization: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     flexWrap: 'wrap',
     paddingRight: 10,
@@ -208,7 +202,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   cardsTextLocation: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     flexWrap: 'wrap',
     paddingRight: 10,
@@ -216,14 +209,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   cardsTextTime: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     textAlign: "right",
     paddingRight: 10,
     fontSize: 14,
   },
   cardsTextDate: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     textAlign: "left",
     paddingLeft: 10,
@@ -232,7 +223,6 @@ const styles = StyleSheet.create({
   cardsTextDescription: {
     flex: 3,
     flexWrap: 'wrap',
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '500',
     paddingLeft: 10,
     paddingRight: 10,

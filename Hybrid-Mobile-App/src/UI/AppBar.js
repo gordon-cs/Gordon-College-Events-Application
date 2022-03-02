@@ -1,8 +1,6 @@
 import { Appbar } from 'react-native-paper';
 import { Text, StyleSheet } from 'react-native';
 
-
-
 export const TopAppBar = (props) => {
 	return (
 	  <Appbar style={styles.top}>
@@ -18,7 +16,6 @@ export const TopAppBar = (props) => {
     );
     }
 
-
 const styles = StyleSheet.create({
   top: {
     flex: 1,
@@ -31,7 +28,6 @@ const styles = StyleSheet.create({
   },
 
   topNavText: {
-    //fontFamily: 'Gotham SSm 7r',
     fontWeight: '900',
     color: 'white',
     fontSize: 20,
@@ -47,7 +43,6 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
-
 
 const AppBars = {
   TopAppBar,

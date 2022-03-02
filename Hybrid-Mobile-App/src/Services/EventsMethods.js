@@ -5,7 +5,6 @@ import { DateTime } from 'luxon';
 // modified to fit their purposes in this project
 // https://github.com/gordon-cs/gordon-360-ui/blob/develop/src/services/event.js
 
-
 /** FROM 360 UI
  *  Fetch all gordon events scheduled after the current date/time
  *
@@ -36,7 +35,6 @@ function formatevent(event) {
 	}
 	
   formattedEvent.title = event.Event_Title || event.Event_Name;
-
   formattedEvent.location = event.Occurrences?.[0]?.Location || 'No Location Listed';
   formattedEvent.organization = event.Organization || 'No Organization Listed';
 
@@ -68,7 +66,6 @@ function sortEventsByTime(a, b) {
   if (timeA > timeB) return 1;
   return 0;
 }
-
 
 /** FROM 360 UI
  *  Get events filtered by a string keyword

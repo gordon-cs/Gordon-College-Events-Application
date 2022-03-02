@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
-import { BottomAppBar } from './AppBar.js';
+import { Dimensions, View, FlatList, StyleSheet, Text } from 'react-native';
 
 const Item = ({ title, date, location, timeRange }) => (
   <View style={styles.item}>
