@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import React from 'react';
 import EventCards from './src/UI/EventCards.js';
 import UpcomingListView from './src/UI/UpcomingEventsView.js';
@@ -7,8 +7,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
+const Tutorial = () => {
+  return(
+  Alert.alert(
+    "About App",
+    "• Swipe right like and left to dislike \n • Click save to view liked events",
+    [
+      { text: "OK"}
+    ]
+  ));
+  }
+
 const App = () => {
 
+  Tutorial();
+  
   const Events = ({ navigation }) => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -29,7 +42,7 @@ const App = () => {
     );
   }
   
-  return (
+  return (   
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
