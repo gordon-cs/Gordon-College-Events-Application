@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import { Dimensions, TouchableHighlight, View, FlatList, StyleSheet, Text, StatusBar, Touchable } from 'react-native';
 import { BottomAppBar } from './AppBar.js';
 
 const Item = ({ title, date, location, timeRange }) => (
@@ -31,12 +31,14 @@ const UpcomingEvents = (props) => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <Item 
-      title={item.title} 
-      location={item.location} 
-      date={item.date} 
-      timeRange={item.timeRange}
-    />
+    <TouchableHighlight onPress={() => alert(item.title)}>
+      <Item 
+        title={item.title} 
+        location={item.location} 
+        date={item.date} 
+        timeRange={item.timeRange}
+      />
+    </TouchableHighlight>  
   );
 
   let content;
