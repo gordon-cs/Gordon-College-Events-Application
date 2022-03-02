@@ -17,9 +17,9 @@ const App = () => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={{padding: 10}}>
-          <EventCards navigation={navigation}/>
+          <EventCards navigation={navigation} />
         </View>  
-      </View>
+      </View>    
     )
   }
 
@@ -27,49 +27,78 @@ const App = () => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <View style={{padding: 10}}>
-          <UpcomingListView savedEvents={route.params.savedEvents }/>
+          <UpcomingListView navigation={navigation} savedEvents={route.params.savedEvents }/>
         </View>  
-      </View>
+      </View>   
     );
   }
   
+  const SingleEvent = ({ navigation, route }) => {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{padding: 10}}>
+          <SingleEvent navigation={navigation} event={route.params.event }/>
+        </View>  
+      </View>            
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Events"
-          component={Events}
-          options={{ 
-            headerShown: true, 
-            // I think should be false because button cannot be
-            // placed in header from EventCards right? 
-            // maybe use app bar? 
-            headerStyle: {
-              backgroundColor: '#014983',
-            },
-            headerTitleStyle: {
-              //fontFamily: 'Gotham SSm 7r',
-              fontWeight: '900',
-              color: 'white',
-              fontSize: 20,
-            },
-          }}
-        />
-        <Stack.Screen 
-          name="Upcoming" 
-          component={UpcomingList}
-          options={{
-            headerStyle: {
-              backgroundColor: '#014983',
-            },
-            headerTitleStyle: {
-              //fontFamily: 'Gotham SSm 7r',
-              fontWeight: '900',
-              color: 'white',
-              fontSize: 20,
-            },
-          }}
-        />
+        <Stack.Group>
+          <Stack.Screen 
+            name="Events"
+            component={Events}
+            options={{ 
+              headerShown: true, 
+              // I think should be false because button cannot be
+              // placed in header from EventCards right? 
+              // maybe use app bar? 
+              headerStyle: {
+                backgroundColor: '#014983',
+              },
+              headerTitleStyle: {
+                //fontFamily: 'Gotham SSm 7r',
+                fontWeight: '900',
+                color: 'white',
+                fontSize: 20,
+              },
+            }}
+          />
+          <Stack.Screen 
+            name="Upcoming" 
+            component={UpcomingList}
+            options={{
+              headerStyle: {
+                backgroundColor: '#014983',
+              },
+              headerTitleStyle: {
+                //fontFamily: 'Gotham SSm 7r',
+                fontWeight: '900',
+                color: 'white',
+                fontSize: 20,
+              },
+            }}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen 
+            name="SingleEvent" 
+            component={SingleEvent}
+            options={{
+              headerStyle: {
+                backgroundColor: '#014983',
+              },
+              headerTitleStyle: {
+                //fontFamily: 'Gotham SSm 7r',
+                fontWeight: '900',
+                color: 'white',
+                fontSize: 20,
+              },
+            }}
+          />
+        </Stack.Group>  
       </Stack.Navigator>
     </NavigationContainer>
   );

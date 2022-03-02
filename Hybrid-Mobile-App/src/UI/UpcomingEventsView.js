@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, TouchableHighlight, View, FlatList, StyleSheet, Text, StatusBar, Touchable } from 'react-native';
-import { BottomAppBar } from './AppBar.js';
+import { Dimensions, TouchableHighlight, View, FlatList, StyleSheet, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 const Item = ({ title, date, location, timeRange }) => (
   <View style={styles.item}>
@@ -15,7 +15,7 @@ const Item = ({ title, date, location, timeRange }) => (
   </View>
 );
 
-const UpcomingEvents = (props) => {
+const UpcomingEvents = ({navigation}) => {
   const [savedEvents, setSavedEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   // Load all events on reload
@@ -25,20 +25,21 @@ const UpcomingEvents = (props) => {
       setLoading(false);
 
       console.log("Saved Ids from Upcoming: ") // DBG
-      console.log(savedEvents);                // DBG
+      console.log(props.savedEvents);          // DBG
     }
     loadEvents();
   }, []);
 
   const renderItem = ({ item }) => (
-    <TouchableHighlight onPress={() => alert(item.title)}>
+    <TouchableHighlight onPress={() => 
+      navigation.navigate('SingleEvent', { name: "Jake" })}>
       <Item 
         title={item.title} 
         location={item.location} 
         date={item.date} 
         timeRange={item.timeRange}
       />
-    </TouchableHighlight>  
+    </TouchableHighlight>
   );
 
   let content;
@@ -75,9 +76,9 @@ const UpcomingEvents = (props) => {
   }
 
   return (
-    <View style={styles.container}>
-      {content}
-    </View> 
+      <View style={styles.container}>
+        {content}
+      </View> 
   );
 }
 

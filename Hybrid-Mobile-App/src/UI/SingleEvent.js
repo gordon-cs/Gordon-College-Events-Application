@@ -8,7 +8,7 @@ import { Dimensions, StyleSheet, Text, View, Button } from 'react-native';
 const SingleEvent = (props) => {
   return(
     <View>
-      {props.event.title}
+      My name is {props.name}
     </View>
   );
 }
