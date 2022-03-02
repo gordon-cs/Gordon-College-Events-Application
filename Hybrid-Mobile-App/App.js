@@ -10,8 +10,8 @@ const Stack = createNativeStackNavigator();
 const Tutorial = () => {
   return(
   Alert.alert(
-    "About App",
-    "• Swipe right like and left to dislike \n • Click save to view liked events",
+    "Tutorial",
+    "• Swipe right like and left to dislike \n • Select 'Saved' to view liked events",
     [
       { text: "OK"}
     ]
